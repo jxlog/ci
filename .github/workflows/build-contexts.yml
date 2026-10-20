@@ -29,7 +29,7 @@ jobs:
         run: python3 scripts/build_request.py plan
   build:
     needs: plan
-    name: Build ${{ matrix.context }}
+    name: "Build ${{ matrix.key }}: ${{ matrix.context }}"
     runs-on: ubuntu-24.04
     timeout-minutes: 90
     strategy:

@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "tag": "v0.1.1",
+  "source_commit": "1f85ace3f6db4330d65acb9d62ce945ae838e7c2",
+  "author_login": "jxlog",
+  "workflow_run": "https://github.com/jxlog/ci/actions/runs/39365973101",
+  "run_attempt": 1,
+  "conclusion": "success",
+  "runner_labels": [
+    "ubuntu-24.04"
+  ],
+  "job_seconds": 26.0,
+  "image": "ghcr.io/jxlog/ci@sha256:e8cca9f3db1bff3eaea14ac125a9a708b2302076cc8eeff01d33a8031591cd89",
+  "platform": "linux/amd64",
+  "platform_manifest": "sha256:9ba47613cdc903c6ac0c93ca9b8e40702882be752dbaa02c81712a16d663ad5e",
+  "public_registry_manifest_verified": true,
+  "steps": [
+    {
+      "name": "Set up job",
+      "conclusion": "success"
+    },
+    {
+      "name": "Checkout tagged source",
+      "conclusion": "success"
+    },
+    {
+      "name": "Validate release identity",
+      "conclusion": "success"
+    },
+    {
+      "name": "Set up Buildx",
+      "conclusion": "success"
+    },
+    {
+      "name": "Build local test image",
+      "conclusion": "success"
+    },
+    {
+      "name": "Test before publication",
+      "conclusion": "success"
+    },
+    {
+      "name": "Log in to GHCR",
+      "conclusion": "success"
+    },
+    {
+      "name": "Publish tested build from local BuildKit cache",
+      "conclusion": "success"
+    },
+    {
+      "name": "Pull and test published digest",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Publish tested build from local BuildKit cache",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Log in to GHCR",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Build local test image",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Set up Buildx",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Checkout tagged source",
+      "conclusion": "success"
+    },
+    {
+      "name": "Complete job",
+      "conclusion": "success"
+    }
+  ],
+  "limits": [
+    "Small sample image only",
+    "linux/amd64 only",
+    "No downstream deployment qualification",
+    "No registry outage fault-injection qualification"
+  ]
+}

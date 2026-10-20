@@ -93,6 +93,7 @@ jobs:
         id: receipt
         env:
           DIGEST: ${{ steps.publish.outputs.digest }}
+          SOURCE_CONTEXT_SHA256: ${{ steps.source.outputs.source_context_sha256 }}
           RUNTIME_TEST: not_performed
         run: python3 scripts/registry_receipt.py
       - name: Publish durable completion receipt

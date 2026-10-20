@@ -62,7 +62,10 @@ def verified_metadata(image, digest, read=manifest):
     for layer in layers:
         require(isinstance(layer, dict) and DIGEST.fullmatch(layer.get("digest", ""))
                 and type(layer.get("size")) is int and layer["size"] >= 0, "Invalid layer descriptor")
-    return {"digest": digest, "platform_digest": platform_digest, "platform": "linux/amd64",
+    config = value.get("config")
+    require(isinstance(config,dict) and DIGEST.fullmatch(config.get("digest", ""))
+            and type(config.get("size")) is int and config["size"] >= 0, "Invalid config descriptor")
+    return {"digest": digest, "platform_digest": platform_digest, "config_digest": config["digest"], "platform": "linux/amd64",
             "compressed_layer_bytes": sum(layer["size"] for layer in layers), "layers": len(layers),
             "registry_manifest_integrity": "passed"}
 
@@ -77,7 +80,14 @@ def main():
     require(re.fullmatch(r"[A-Za-z0-9_][A-Za-z0-9_.-]{0,127}", image_tag), "Invalid image tag")
     run_id, attempt = os.environ["GITHUB_RUN_ID"], os.environ["GITHUB_RUN_ATTEMPT"]
     require(re.fullmatch("[1-9][0-9]*", run_id) and re.fullmatch("[1-9][0-9]*", attempt), "Invalid run identity")
+    workflow_ref = os.environ["GITHUB_WORKFLOW_REF"]
+    workflow_path = workflow_ref.split("@",1)[0].removeprefix(os.environ["GITHUB_REPOSITORY"]+"/")
+    require(re.fullmatch(r"\.github/workflows/[A-Za-z0-9_.-]+\.ya?ml",workflow_path), "Invalid workflow identity")
+    context_sha = os.environ.get("SOURCE_CONTEXT_SHA256") if spec else None
+    require(spec is None or re.fullmatch(r"[a-f0-9]{64}",context_sha or ""), "Missing context snapshot")
     receipt = {"schema_version": 1, "repository": os.environ["GITHUB_REPOSITORY"],
+               "workflow_path": workflow_path, "source_context_sha256": context_sha,
+               "source_context_scope": "entire_context_except_git_metadata_including_ignored_files" if spec else None,
                "pipeline_commit": commit, "trigger_tag": tag, "run_id": int(run_id),
                "run_attempt": int(attempt), "image": image, "image_tag": image_tag,
                "request": spec, "runtime_test": os.environ.get("RUNTIME_TEST", "not_performed"),

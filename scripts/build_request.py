@@ -6,6 +6,7 @@ from pathlib import Path, PurePosixPath
 import re
 import subprocess
 import sys
+import stat
 
 FIELDS = {'repository', 'revision', 'context', 'dockerfile', 'dockerfile_sha256'}
 
@@ -51,6 +52,39 @@ def plan(raw, pipeline):
     return {'include': rows}
 
 
+def context_snapshot(root):
+    """Bind every context entry except Git metadata, including ignored files.
+
+    This conservative snapshot is not Docker's filtered tar hash. File executable
+    bits and symlink targets are bound; checkout owner/mtime do not change it.
+    """
+    root = Path(root).resolve()
+    records = []
+    def visit(directory):
+        for path in sorted(directory.iterdir()):
+            if path.name == '.git':
+                continue
+            name = path.relative_to(root).as_posix()
+            mode = path.lstat().st_mode
+            if stat.S_ISLNK(mode):
+                if not path.resolve().is_relative_to(root):
+                    raise ValueError('context link escapes root')
+                records.append([name, 'symlink', os.readlink(path)])
+            elif stat.S_ISDIR(mode):
+                records.append([name, 'directory'])
+                visit(path)
+            elif stat.S_ISREG(mode):
+                h = hashlib.sha256()
+                with path.open('rb') as stream:
+                    for chunk in iter(lambda: stream.read(1024*1024), b''):
+                        h.update(chunk)
+                records.append([name, 'file', bool(mode & 0o111), h.hexdigest()])
+            else:
+                raise ValueError('unsupported special context file')
+    visit(root)
+    return hashlib.sha256(json.dumps(records,separators=(',',':'),ensure_ascii=False).encode()).hexdigest()
+
+
 def verify_source(spec, root):
     root = Path(root).resolve()
     current = subprocess.check_output(['git', '-C', str(root), 'rev-parse', 'HEAD'], text=True).strip()
@@ -64,7 +98,7 @@ def verify_source(spec, root):
         raise ValueError('context or Dockerfile missing')
     if hashlib.sha256(dockerfile.read_bytes()).hexdigest() != spec['dockerfile_sha256']:
         raise ValueError('Dockerfile differs from reviewed public source')
-    return {'context': str(context), 'file': str(dockerfile)}
+    return {'context': str(context), 'file': str(dockerfile), 'source_context_sha256': context_snapshot(context)}
 
 
 def read_tag(ref, pipeline, cwd=None):

@@ -24,3 +24,18 @@ Both workflows now explicitly disable provenance/SBOM attachments, producing
 the regular runtime image without requiring OCI attestation support. Digest
 verification and metadata receipts remain enabled; these are not signed SLSA
 provenance. The failed tag is retained. v0.2.1 is a new compatibility probe.
+
+
+## Additive artifact identity fields
+
+Context publications now bind `source_context_sha256`, `source_context_scope`,
+`workflow_path`, and the runtime `config_digest`. Existing schema 1 receipts
+remain historical records. Consumers requiring these fields must reject older
+receipts that do not carry them; they must not infer a config ID from an index.
+
+The context snapshot conservatively includes ignored files and excludes Git
+metadata. It records regular-file bytes, executable bits, directory names and
+non-escaping symlink targets. It is not Docker's filtered build-context tar hash.
+The source revision and original Dockerfile hash remain immutable request inputs.
+Automatic provenance/SBOM attachments remain disabled for registry compatibility;
+an ordinary completion receipt is not a signed provenance claim.

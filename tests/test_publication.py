@@ -38,7 +38,7 @@ class PublicationTests(unittest.TestCase):
 
     def test_index_selects_runtime_manifest_ignoring_attestation(self):
         child="sha256:"+"a"*64
-        image={"schemaVersion":2,"layers":[{"digest":"sha256:"+"b"*64,"size":700}]}
+        image={"schemaVersion":2,"config":{"digest":"sha256:"+"e"*64,"size":12},"layers":[{"digest":"sha256:"+"b"*64,"size":700}]}
         index={"schemaVersion":2,"manifests":[{"digest":child,"platform":{"os":"linux","architecture":"amd64"}},
                {"digest":"sha256:"+"c"*64,"platform":{"os":"unknown","architecture":"unknown"}}]}
         root="sha256:"+"d"*64

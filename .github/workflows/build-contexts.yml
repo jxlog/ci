@@ -23,7 +23,7 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - name: Validate generic request tests
-        run: python3 -m unittest discover -s tests -p 'test_build_request.py' -v
+        run: python3 -m unittest discover -s tests -p 'test_*.py' -v
       - id: plan
         name: Read annotated tag request
         run: python3 scripts/build_request.py plan
@@ -37,10 +37,10 @@ jobs:
       max-parallel: 3
       matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
     permissions:
-      contents: read
-      packages: write
+      contents: write
     env:
       DOCKER_BUILD_RECORD_UPLOAD: 'false'
+      REGISTRY_IMAGE: ${{ vars.REGISTRY_IMAGE }}
       BUILD_SPEC: ${{ toJSON(matrix) }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
@@ -63,14 +63,14 @@ jobs:
           df -h /
           sudo rm -rf -- /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/local/.ghcup /usr/share/swift /usr/local/share/powershell
           df -h /
-          echo "IMAGE=ghcr.io/${GITHUB_REPOSITORY,,}" >> "$GITHUB_ENV"
+          python3 scripts/registry_target.py
       - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
-      - name: Log in to GHCR
+      - name: Log in to configured registry
         uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ${{ env.REGISTRY }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
       - name: Build and push original context
         id: publish
         uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
@@ -86,10 +86,17 @@ jobs:
             io.ci.source.repository=${{ matrix.repository }}
             io.ci.source.context=${{ matrix.context }}
             io.ci.pipeline.revision=${{ github.sha }}
-      - name: Verify public registry manifest and record size
+      - name: Verify registry metadata and write publication receipt
+        id: receipt
         env:
           DIGEST: ${{ steps.publish.outputs.digest }}
+          RUNTIME_TEST: not_performed
         run: python3 scripts/registry_receipt.py
+      - name: Publish durable completion receipt
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RECEIPT: ${{ steps.receipt.outputs.receipt }}
+        run: python3 scripts/publish_receipt.py "$RECEIPT"
       - name: Final disk usage
         if: always()
         run: |

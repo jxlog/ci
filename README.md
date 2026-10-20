@@ -44,3 +44,22 @@ docker pull ghcr.io/jxlog/ci@sha256:REPLACE_WITH_VERIFIED_DIGEST
 | CI-2 | 实际构建、自测、GHCR 发布、发布后 digest 自测 |
 
 测试记录位于 `docs/acceptance.md`，绑定对应 commit、tag 和 Actions run。下游环境验证不属于本仓库的验收范围。
+
+## 批量构建公开上下文
+
+`build-*` **带注释 tag** 可携带版本化 JSON 请求，无需把外部源码或环境配置复制进本仓库。请求只接受公开 GitHub 仓库名、完整 commit SHA、相对 context/Dockerfile 路径和 Dockerfile SHA-256。
+
+```json
+{"version":1,"images":[{"repository":"owner/source","revision":"FULL_40_CHARACTER_COMMIT","context":"image","dockerfile":"Dockerfile","dockerfile_sha256":"FULL_64_CHARACTER_SHA256"}]}
+```
+
+```bash
+git tag -a build-example-001 -F request.json
+git push origin build-example-001
+```
+
+请求是公开 tag 内容，不能包含秘密。输入最多 128 个镜像，每批最多 3 并发，每个构建上限 90 分钟。输入和 pipeline commit 共同决定输出镜像 tag。原始 Dockerfile 与依赖安装指令不作修改。普通 `v*` 发布继续沿用原来的示例构建和运行自测。
+
+批量路径直接用 BuildKit 推送，避免同时保留本地 Docker 副本。只清理本次临时 runner 中不需要的预装 SDK，并记录清理前后及结束时磁盘量；没有使用付费大型 runner。失败不会取消其他镜像，不自动重跑未知推送。每项成功后读取公共 registry manifest 校验 digest，记录压缩层大小与来源；构建成功不表示该镜像已通过运行时功能测试。
+
+本仓库保留通用流水线。外部使用方自行维护请求清单及按用途归类的验收报告。

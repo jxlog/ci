@@ -1,0 +1,94 @@
+name: Build public contexts
+on:
+  push:
+    tags: ['build-*']
+permissions:
+  contents: read
+concurrency:
+  group: contexts-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  plan:
+    if: github.event.repository.private == false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Validate generic request tests
+        run: python3 -m unittest discover -s tests -p 'test_build_request.py' -v
+      - id: plan
+        name: Read annotated tag request
+        run: python3 scripts/build_request.py plan
+  build:
+    needs: plan
+    name: Build ${{ matrix.context }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    permissions:
+      contents: read
+      packages: write
+    env:
+      DOCKER_BUILD_RECORD_UPLOAD: 'false'
+      BUILD_SPEC: ${{ toJSON(matrix) }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Checkout pinned public source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          repository: ${{ matrix.repository }}
+          ref: ${{ matrix.revision }}
+          path: _source
+          persist-credentials: false
+      - name: Verify source and paths
+        id: source
+        run: python3 scripts/build_request.py source
+      - name: Reclaim unused SDK space on ephemeral runner
+        run: |
+          set -euo pipefail
+          [[ "$RUNNER_ENVIRONMENT" == github-hosted ]]
+          df -h /
+          sudo rm -rf -- /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/local/.ghcup /usr/share/swift /usr/local/share/powershell
+          df -h /
+          echo "IMAGE=ghcr.io/${GITHUB_REPOSITORY,,}" >> "$GITHUB_ENV"
+      - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
+      - name: Log in to GHCR
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push original context
+        id: publish
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
+        with:
+          context: ${{ steps.source.outputs.context }}
+          file: ${{ steps.source.outputs.file }}
+          platforms: linux/amd64
+          push: true
+          tags: ${{ env.IMAGE }}:${{ matrix.image_tag }}
+          labels: |
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+            org.opencontainers.image.revision=${{ matrix.revision }}
+            io.ci.source.repository=${{ matrix.repository }}
+            io.ci.source.context=${{ matrix.context }}
+            io.ci.pipeline.revision=${{ github.sha }}
+      - name: Verify public registry manifest and record size
+        env:
+          DIGEST: ${{ steps.publish.outputs.digest }}
+        run: python3 scripts/registry_receipt.py
+      - name: Final disk usage
+        if: always()
+        run: |
+          df -h /
+          docker system df || true

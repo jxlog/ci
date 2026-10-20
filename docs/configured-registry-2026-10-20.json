@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-20T07:56:33.411739+00:00",
+  "pipeline_commit": "f4aa0a0b54cc38f20cfe9e6f5ef7c69689b6fbf7",
+  "tag": "v0.2.1",
+  "run_id": 39386242161,
+  "run_attempt": 1,
+  "run_url": "https://github.com/jxlog/ci/actions/runs/39386242161",
+  "conclusion": "success",
+  "created_at": "2026-10-20T07:23:56Z",
+  "completed_at": "2026-10-20T07:24:35Z",
+  "destination": "configured_private_registry",
+  "platform": "linux/amd64",
+  "digest": "sha256:ea1c6223b4206f03f919dcaaed4e9b1a6044f389217e8b8b556380345f40d0b0",
+  "compressed_layer_bytes": 2211650,
+  "layers": 2,
+  "runtime_test": "passed_before_and_after_push",
+  "registry_manifest_integrity": "passed",
+  "receipt_asset_sha256": "ca24b9c0acb60598881645f62e81b5a9d8a65b724ca27e7a8a284f2299798147",
+  "receipt_asset_bytes": 694,
+  "host_unit_tests": 16,
+  "automatic_attestations": false,
+  "previous_failed_run": {
+    "tag": "v0.2.0",
+    "run_id": 39385811926,
+    "reason": "registry rejected automatic OCI attestation empty-config media type",
+    "publication_receipt_created": false
+  },
+  "large_context_run": {
+    "run_id": 39387026796,
+    "run_url": "https://github.com/jxlog/ci/actions/runs/39387026796",
+    "status": "in_progress",
+    "conclusion": null,
+    "accepted": false
+  },
+  "limits": [
+    "Only the sample has runtime tests",
+    "Large-context publication to this destination is pending",
+    "No signed provenance/SBOM claim",
+    "Downstream consumers are outside this repository"
+  ]
+}

@@ -1,5 +1,18 @@
 # Image CI acceptance
 
+## Configured private registry — sample publication passed
+
+- Tested pipeline: `f4aa0a0b54cc38f20cfe9e6f5ef7c69689b6fbf7`, tag **v0.2.1**.
+- [Actions run 39386242161](https://github.com/jxlog/ci/actions/runs/39386242161), attempt 1, succeeded in approximately **39 seconds** (whole workflow).
+- Standard public runner built the sample, ran pre-push tests, pushed directly to the configured private registry, pulled by digest, repeated runtime/revision checks, verified manifest integrity, and published a durable JSON receipt.
+- Compressed layer sum: **2,211,650 bytes**, 2 layers. Completion receipt: **694 bytes**. This is not registry storage billing or a downstream unpacked-size measurement.
+- Sixteen publisher unit tests passed on Host and in CI.
+- v0.2.0 failed when the registry rejected automatic BuildKit attestation manifests. v0.2.1 disables automatic provenance/SBOM attachments generically; it retains runtime-manifest digest verification. Failed history and release identities are preserved.
+- A separate large-context run, [39387026796](https://github.com/jxlog/ci/actions/runs/39387026796), is still under observation; large-image publication to this destination is **not yet accepted**.
+- [Machine-readable evidence](configured-registry-2026-10-20.json).
+
+Historical GHCR results below remain historical evidence, not validation of the newly configured destination.
+
 ## Batch cold builds — infrastructure passed
 
 - Pipeline commit: `488096db2465c0cc145e808b427bfdaa16ef323b`; standard public `ubuntu-24.04` runners only.

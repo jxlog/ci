@@ -39,3 +39,20 @@ non-escaping symlink targets. It is not Docker's filtered build-context tar hash
 The source revision and original Dockerfile hash remain immutable request inputs.
 Automatic provenance/SBOM attachments remain disabled for registry compatibility;
 an ordinary completion receipt is not a signed provenance claim.
+
+
+## Slow registry exports
+
+The generic context workflow has a finite350-minute job budget and a330-minute
+build/export step budget, below the public hosted runner six-hour ceiling. This
+reserves time for metadata verification and publication instead of canceling a
+successful Dockerfile build during a slow registry upload at90 minutes.
+
+A timeout is a failed publication, never a consumer-ready image. Completed
+source instructions and an unfinished layer upload are separate evidence. The
+original job logs and timeout remain in history. Retry affected contexts with a
+new immutable request/pipeline identity; do not rerun successful sibling jobs or
+claim a faster transfer from this budget adjustment. Task Dockerfiles, sources,
+labels and registry destination are unchanged. No paid runner or extra service
+is introduced. Very large exports may still exceed the finite hosted limit and
+require a separately qualified network route.

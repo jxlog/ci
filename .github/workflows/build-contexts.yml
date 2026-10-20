@@ -31,7 +31,9 @@ jobs:
     needs: plan
     name: "Build ${{ matrix.key }}: ${{ matrix.context }}"
     runs-on: ubuntu-24.04
-    timeout-minutes: 90
+    # Keep a finite transfer budget below the hosted runner six-hour limit.
+    # Slow exports are preparation, independent of consumer execution budgets.
+    timeout-minutes: 350
     strategy:
       fail-fast: false
       max-parallel: 3
@@ -73,6 +75,8 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - name: Build and push original context
         id: publish
+        # Reserve time for receipt verification and durable publication.
+        timeout-minutes: 330
         uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
         with:
           context: ${{ steps.source.outputs.context }}

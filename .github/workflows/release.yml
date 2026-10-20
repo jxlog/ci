@@ -44,6 +44,9 @@ jobs:
         with:
           context: .
           platforms: linux/amd64
+          # Some registries reject the empty config media type used by attestations.
+          provenance: false
+          sbom: false
           load: true
           tags: ci-local:test
           labels: |
@@ -64,6 +67,9 @@ jobs:
         with:
           context: .
           platforms: linux/amd64
+          # Some registries reject the empty config media type used by attestations.
+          provenance: false
+          sbom: false
           push: true
           tags: ${{ env.IMAGE }}:${{ env.VERSION }}
           labels: |

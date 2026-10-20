@@ -93,3 +93,9 @@ Registry metadata reads retry with bounded backoff. This does not claim a
 cross-run build/push retry protocol or uninterrupted service from a registry.
 Actions logs and release metadata are public; use only approved public build
 contexts. The registry may keep the resulting image private.
+
+
+Registry compatibility: automatic BuildKit provenance and SBOM attachments are
+disabled because some registries reject their empty-config media type. Regular
+runtime manifests and content digest checks remain enabled. JSON completion
+receipts are operational records, not signed supply-chain attestations.

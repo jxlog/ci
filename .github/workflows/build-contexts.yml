@@ -78,6 +78,9 @@ jobs:
           context: ${{ steps.source.outputs.context }}
           file: ${{ steps.source.outputs.file }}
           platforms: linux/amd64
+          # Some registries reject the empty config media type used by attestations.
+          provenance: false
+          sbom: false
           push: true
           tags: ${{ env.IMAGE }}:${{ matrix.image_tag }}
           labels: |

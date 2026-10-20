@@ -1,0 +1,657 @@
+{
+  "schema_version": 1,
+  "pipeline_commit": "488096db2465c0cc145e808b427bfdaa16ef323b",
+  "observed_at": "2026-10-20T04:41:27.436888+00:00",
+  "input_count": 97,
+  "published_and_independently_verified": 94,
+  "failed_inputs": 3,
+  "source_matrix_acceptance": "not_all_inputs_passed",
+  "infrastructure_acceptance": "passed",
+  "task_source_issue_policy": "record_only_outside_infrastructure_scope",
+  "runner": "standard public ubuntu-24.04",
+  "max_parallel_per_batch": 3,
+  "max_compressed_layer_bytes": 14640126305,
+  "largest_image": "ghcr.io/jxlog/ci@sha256:479e47c75b3bffe557c68ae7f89a9af17fe8abfd48f3530af85c8a753e434bd6",
+  "runs": [
+    {
+      "request_tag": "build-heavy-20261019-b",
+      "run_id": 39367390036,
+      "url": "https://github.com/jxlog/ci/actions/runs/39367390036",
+      "inputs": 13,
+      "passed": 13,
+      "failed": 0
+    },
+    {
+      "request_tag": "build-cpu-20261019-a",
+      "run_id": 39367650096,
+      "url": "https://github.com/jxlog/ci/actions/runs/39367650096",
+      "inputs": 28,
+      "passed": 28,
+      "failed": 0
+    },
+    {
+      "request_tag": "build-cpu-20261019-b",
+      "run_id": 39367667996,
+      "url": "https://github.com/jxlog/ci/actions/runs/39367667996",
+      "inputs": 28,
+      "passed": 27,
+      "failed": 1
+    },
+    {
+      "request_tag": "build-cpu-20261019-c",
+      "run_id": 39367687338,
+      "url": "https://github.com/jxlog/ci/actions/runs/39367687338",
+      "inputs": 28,
+      "passed": 26,
+      "failed": 2
+    }
+  ],
+  "failure_classes": {
+    "upstream_git_source_unavailable_anonymously": 1,
+    "upstream_apt_package_404": 2
+  },
+  "failures": [
+    {
+      "job_url": "https://github.com/jxlog/ci/actions/runs/39367667996/job/118448137735",
+      "category": "upstream_git_source_unavailable_anonymously",
+      "build_step_failed": [
+        "Build and push original context"
+      ],
+      "original_context_modified": false
+    },
+    {
+      "job_url": "https://github.com/jxlog/ci/actions/runs/39367687338/job/118448182853",
+      "category": "upstream_apt_package_404",
+      "build_step_failed": [
+        "Build and push original context"
+      ],
+      "original_context_modified": false
+    },
+    {
+      "job_url": "https://github.com/jxlog/ci/actions/runs/39367687338/job/118448182812",
+      "category": "upstream_apt_package_404",
+      "build_step_failed": [
+        "Build and push original context"
+      ],
+      "original_context_modified": false
+    }
+  ],
+  "verified_outputs": [
+    {
+      "request_key": "40e99ba5f3b1ad5ce5ed04398649943e",
+      "image": "ghcr.io/jxlog/ci@sha256:b7a0645a6a7e8dd7a583816ec165906915cec1e6db2a6b4e41cdf44e6fc35ac9",
+      "compressed_layer_bytes": 332260461,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "cf3fb7163fd0c9770592dbd176a2a0dc",
+      "image": "ghcr.io/jxlog/ci@sha256:b5593b2f6620cec07abe640fea9486d5c6b5f57a403d365e0b149fdf3966762d",
+      "compressed_layer_bytes": 6476517862,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "aa9ace4f1b9087a937d506ad873677a5",
+      "image": "ghcr.io/jxlog/ci@sha256:8c823c12170f6ea85a9c2829e8ccdfc4af56e0f76331095976afe7a908ef96f3",
+      "compressed_layer_bytes": 14635733893,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "345a5bf0bba5e13c22e498ef9941a426",
+      "image": "ghcr.io/jxlog/ci@sha256:f39c197bd6d75d31113781da9f643781f639f2a6ded3717bdf6db31bd9bfe9b1",
+      "compressed_layer_bytes": 7332651223,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "f1a7a9e36fe0a0da1d261f1222105f4a",
+      "image": "ghcr.io/jxlog/ci@sha256:2ade3c621cc6e0ecad39999953541c32ed09aa7d9bedd500154b4b662830f122",
+      "compressed_layer_bytes": 6256309330,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "1f1c210a922f49211f19bac1b77564ad",
+      "image": "ghcr.io/jxlog/ci@sha256:f64704bd2d8507ff8feab885bb9aca04cfd5231e5b44d3a395b0594050e91941",
+      "compressed_layer_bytes": 664996111,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "bf5a658f51c86cf9b22648aed02b1383",
+      "image": "ghcr.io/jxlog/ci@sha256:d4145d4d7e9ae6b2880eccdc39dd5cbe1bc848faef7fc9d0c71e38483fbb31aa",
+      "compressed_layer_bytes": 629906993,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "bc026030401ff8755620c4e2f6e38b48",
+      "image": "ghcr.io/jxlog/ci@sha256:d680e7c8cbfc6c00b0cab42d4f963e922e9ca65f58d1e85bb933ae37d19769b6",
+      "compressed_layer_bytes": 131925879,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "df4783e8dce38a51cf95bcd3795b0668",
+      "image": "ghcr.io/jxlog/ci@sha256:ebf2e9c412fd54aa65436dfb264b38db7145c83127e8d711ae912dfcb67f674e",
+      "compressed_layer_bytes": 272967651,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "e8a0055c9e6fa6d0029c2f6e4e5b0c68",
+      "image": "ghcr.io/jxlog/ci@sha256:479e47c75b3bffe557c68ae7f89a9af17fe8abfd48f3530af85c8a753e434bd6",
+      "compressed_layer_bytes": 14640126305,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "107d5675a12eb609d8d3bb602323749f",
+      "image": "ghcr.io/jxlog/ci@sha256:fced7413eb47e9f3f24e3a7f6e15d30ee818e990abd33d41495a23ad6eded5d0",
+      "compressed_layer_bytes": 6472484477,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "f31c3891a9df53bc7926f1768a2b5de0",
+      "image": "ghcr.io/jxlog/ci@sha256:0591ad3be5eebfe81a49691b52d5b25c02785f3d1794ed68eb932a82227112f1",
+      "compressed_layer_bytes": 7337681394,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "87c2f2b791b4cab027803aa4e6feae5a",
+      "image": "ghcr.io/jxlog/ci@sha256:1da3eb933cb20d53643bdab9c2e98b37749c7ad47e309aae54f04a95363560f2",
+      "compressed_layer_bytes": 81387660,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "6e2cfbeba0001c8ac1d4d887049069b9",
+      "image": "ghcr.io/jxlog/ci@sha256:d4a9ff4ad52b5d39b3ecdb1f209d414ddb8fc91ca3e7da520002b260f81e6e21",
+      "compressed_layer_bytes": 29771627,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "b9dd325c9e1bfc60f6bf57d49738bbad",
+      "image": "ghcr.io/jxlog/ci@sha256:f1dafd64f5c6ef79b305de25f79041a8906c82a7fd0815b5f3d029d4b39a30c1",
+      "compressed_layer_bytes": 261931987,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "47b6d12db4f9e98d21e744de9b421a89",
+      "image": "ghcr.io/jxlog/ci@sha256:2b67d274c63b8ea2c8168cf3bae0c1bd83ad4adc9c10e517bd1d40e43a7adb5e",
+      "compressed_layer_bytes": 406895828,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "a5b576d500b7e3335be108e48b106cbe",
+      "image": "ghcr.io/jxlog/ci@sha256:c2557f3a43e07d0ae76825650d6e5099b0c17e5697965f6473aa30ce608d27d1",
+      "compressed_layer_bytes": 297500441,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "6826973c6a5803f47f7c158164d238d5",
+      "image": "ghcr.io/jxlog/ci@sha256:f1d0b9fb54f3504c6a326fc722429cf60db5384320ed4c9645cb9b45d6479688",
+      "compressed_layer_bytes": 64506218,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "cf7d3712604a0f89ab744aa4a4982506",
+      "image": "ghcr.io/jxlog/ci@sha256:f22aad0b76bb0d6e269666a36d38c8fbd98d3e6f36539f2362610b4587357216",
+      "compressed_layer_bytes": 162452939,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "bac27ef7355ab5ef5cec9906403e77d2",
+      "image": "ghcr.io/jxlog/ci@sha256:8a0021d24f2d9618e5ff1338af406f0437c455c994e2fdf5a444e029f202c002",
+      "compressed_layer_bytes": 208654993,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "591f35e58c78f79a918d2332a1044ccd",
+      "image": "ghcr.io/jxlog/ci@sha256:0c59cd032faaad4a9431f6e582707e82e06c3876da9f1f5fc3ba400ba5ab6786",
+      "compressed_layer_bytes": 46484812,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "b9e0b4eb252e3220799ac713bd5ec528",
+      "image": "ghcr.io/jxlog/ci@sha256:cfa946713bbd34b06d99a1cb4fa7ed7267d3a0604588bdc925cf6c18fd75a858",
+      "compressed_layer_bytes": 225793655,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "c3e3cc8d7e17584604eb3a595ae0ad23",
+      "image": "ghcr.io/jxlog/ci@sha256:e69576299ced5ee7a1ec20cf09f74ed593192322a2715d610ffe1d8dbc943a9c",
+      "compressed_layer_bytes": 145795664,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "b2df71e26e191bce8adf206105b40621",
+      "image": "ghcr.io/jxlog/ci@sha256:368c6b0a35b8e098c9cdba4a66965d851ec24095b3a6c679349aa92b42e14bd7",
+      "compressed_layer_bytes": 164255816,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "973c564b84506b4bf622825d4ca935ab",
+      "image": "ghcr.io/jxlog/ci@sha256:16a710f476e076d57d457bf597aabf037fa2510ec0bea0bc7ff9d5fb219ee293",
+      "compressed_layer_bytes": 46565062,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "785f1e4a1279dec3f241d42847be316c",
+      "image": "ghcr.io/jxlog/ci@sha256:5cb2fac915273b50656bb4c66c1ae6fcc9b8ec753cb184d0650d241d6b3995d3",
+      "compressed_layer_bytes": 29766034,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "241c1d282b3cd678c33ff1027f8b9a1c",
+      "image": "ghcr.io/jxlog/ci@sha256:ca1f8ff4245322785671b65b2e0632b36196816323438ab0420a233941375e7e",
+      "compressed_layer_bytes": 71951190,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "66fe435a1f484368d043284689151af1",
+      "image": "ghcr.io/jxlog/ci@sha256:55b76d2f959a55c147c3a43b9a29b65f249fd3aeba6adf733afb1c42e39c0da0",
+      "compressed_layer_bytes": 49872813,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "fc825a3b46a375c3f4af3f65e9bc80f3",
+      "image": "ghcr.io/jxlog/ci@sha256:0bff4349f57063de32ac5316844c851731a287f3e3480affcd0613d1cf42ecdc",
+      "compressed_layer_bytes": 46484812,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "45b1e12cbb1fc35cba1075b8ab7a9d98",
+      "image": "ghcr.io/jxlog/ci@sha256:8f7276fc6e81f69b9f6a8617ea03ae72449b862b5e8cba26f5b6d0d5e12918bb",
+      "compressed_layer_bytes": 353832268,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "e0bc3493ccf7161df41649696bf56c2c",
+      "image": "ghcr.io/jxlog/ci@sha256:262bdaf3168d515962416a28b88b987db8e81ddffe65182d318f83144b53b0f1",
+      "compressed_layer_bytes": 1266931976,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "6e9538fede6ee1b4a25eeee77e4c7788",
+      "image": "ghcr.io/jxlog/ci@sha256:4f0f24e379d7269a5820a3b2f5119622e37129769d185cec684f7c9b41f202ee",
+      "compressed_layer_bytes": 174791036,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "4dae695bf288baced06c4ab3d5da47e3",
+      "image": "ghcr.io/jxlog/ci@sha256:f0d42f9aa791dc14bf8dd7afe8558b839af2f342c424adc1dd0f05166d4a4622",
+      "compressed_layer_bytes": 183860144,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "4dca865b252b60cc14dbcba134a4b8c6",
+      "image": "ghcr.io/jxlog/ci@sha256:950a94e2e77775a2aaac8e751f0b2c29570a8f533ab812412731ac64fd65869c",
+      "compressed_layer_bytes": 29767423,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "48be4ea63462416bb5fbf12544fbf6dd",
+      "image": "ghcr.io/jxlog/ci@sha256:5b74b91a84e3fea722ceff599474289c320bb8ff8ca327a224ec7589ba93fe4a",
+      "compressed_layer_bytes": 29767235,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "c26a38f03e45ac1666ec465c4eafb659",
+      "image": "ghcr.io/jxlog/ci@sha256:99ade08370de5c3e7166138a2135bd33a3c75736569db681ea9208fc1c4a206c",
+      "compressed_layer_bytes": 349904187,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "07b5cbc76e7b56ac0137b0e1983c2948",
+      "image": "ghcr.io/jxlog/ci@sha256:7e1f15959510ae7c9cbb4faff84b0a4b219584df108415f0f1e8bfc4d140be16",
+      "compressed_layer_bytes": 41731163,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "8b0da583109f2d3e7f6580b7a8856c31",
+      "image": "ghcr.io/jxlog/ci@sha256:3056a882ebbdc0769755f44f15ee97c9164062668a0e6e147ec5cfd058a334cf",
+      "compressed_layer_bytes": 54125092,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "06695ce5e1e68b64e4f70e024994969a",
+      "image": "ghcr.io/jxlog/ci@sha256:f46d18ef1aa7898e793106d720aa95f5d090bd5c4582dad3b6d9ab42b349892e",
+      "compressed_layer_bytes": 153448909,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "e435acc6b206264083edd5aa669adb6e",
+      "image": "ghcr.io/jxlog/ci@sha256:258a483b59b0826de69c6006458716c79b7d570368d1812332e2ec16b80219c6",
+      "compressed_layer_bytes": 403344582,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "bdc3bac146795716f7db8baf214767d1",
+      "image": "ghcr.io/jxlog/ci@sha256:299be0b623736a1366039ee886eff03f0b736171f9413a74a4fa630e8a6c9bd8",
+      "compressed_layer_bytes": 51833120,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "bd0ffe54cf6e0e4a008fae610b86a025",
+      "image": "ghcr.io/jxlog/ci@sha256:43916ec56fe640ccbafcfbcca42f0228069a44892beaf0cc2d25afd5924c3444",
+      "compressed_layer_bytes": 193613283,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "7efab948202e42af92f1c4bdd952d423",
+      "image": "ghcr.io/jxlog/ci@sha256:5522b5a572a4aaf2595d81b3fdc2ae61e16198fedc326bf76c672a4099f93671",
+      "compressed_layer_bytes": 782194321,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "e8e9972ed5b80e2fe671b916913a0fe1",
+      "image": "ghcr.io/jxlog/ci@sha256:47b2d87605d3e4fe7fd37c3583e52f206b5ee557407b83689e796fa35b3fa293",
+      "compressed_layer_bytes": 47356849,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "6e58b501c3b8c53c92f38ec33ae272b3",
+      "image": "ghcr.io/jxlog/ci@sha256:48bb270143a6cffae071a6082b0c1d374d7fbfe7873b578351003f88b6e7aa2c",
+      "compressed_layer_bytes": 95355383,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "b13a5164e785463d4fb6024e25875bff",
+      "image": "ghcr.io/jxlog/ci@sha256:d47fef3d5077f86e65ded5bd8ac1f1bd860595e61b83551e14c2d8ce3e0b1ba2",
+      "compressed_layer_bytes": 221683342,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "74f253671007f1096e39722c9801cbf0",
+      "image": "ghcr.io/jxlog/ci@sha256:62842f9ab068e7286d4488cea644e1dc984aa51f76c6d94efac6f58a8484272a",
+      "compressed_layer_bytes": 613292285,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "b9ebb0a2b2a2958163b789827ea13b4b",
+      "image": "ghcr.io/jxlog/ci@sha256:b6a56002fab1082aa7134b3b708e2b0659cdfa769a69dc7c4fa16f7edf2b144d",
+      "compressed_layer_bytes": 64508424,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "eca3b1cb75242a92c0bdaf996352dc1f",
+      "image": "ghcr.io/jxlog/ci@sha256:4d55dacd9e5f0a2d63f899fc93c48ae1929c2cbed71aff8e4e49e2ff1067e4d7",
+      "compressed_layer_bytes": 576387861,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "90e2990c2b006036b53fedb631c9001c",
+      "image": "ghcr.io/jxlog/ci@sha256:e85b69d1965614c571c382a1a0c9e3447b821f070a28f33ee5b9138a54da8866",
+      "compressed_layer_bytes": 46484812,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "695ec938e170ba973f44923c591ed5a1",
+      "image": "ghcr.io/jxlog/ci@sha256:b386fe787a5b71227c4a430c28fb7949e4ed6e6d0dcc8661fc9b69e636c9bba3",
+      "compressed_layer_bytes": 75429683,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "f5080002b787853f6b15137150c94ad8",
+      "image": "ghcr.io/jxlog/ci@sha256:606b55b6f24a692819bc41839402737b303daf83e5f58f5720639651e38c3c50",
+      "compressed_layer_bytes": 87289250,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "4cb7ceeabd11f80a208e9a2cd56ebda7",
+      "image": "ghcr.io/jxlog/ci@sha256:587c617eb446b20d119b073b8f1c3c3ee5f7011f75fef35555ac22f3305471b5",
+      "compressed_layer_bytes": 46501327,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "0c21eaa0154c80098ad97dc1ac41c7f1",
+      "image": "ghcr.io/jxlog/ci@sha256:1a7d55117906ec5172061e7ebaf8e73ee53c839b61fd0c04048059df8679058b",
+      "compressed_layer_bytes": 47178275,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "448473d6dc2174d0bec2b6341a3144b1",
+      "image": "ghcr.io/jxlog/ci@sha256:26d0851871d801ee6da340ca7df67d7685585aac2b685a5526b5e10edbf0d0be",
+      "compressed_layer_bytes": 161097805,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "d48eacb8a8349a5913d7fec6c4a815e6",
+      "image": "ghcr.io/jxlog/ci@sha256:4cf0e0178a71e4cd06e213b1ecd943ee90dd296aa388c052ff3281fea5c2784c",
+      "compressed_layer_bytes": 188013650,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "9f0f5374f31e1772cafc27bc18cfa190",
+      "image": "ghcr.io/jxlog/ci@sha256:9be269a687d71cd50cf8220b6e5ca32cda6121c626e43393c3b09d3ff25e1cbe",
+      "compressed_layer_bytes": 511818134,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "2cc9e3f5485066211e0752374b8a8f82",
+      "image": "ghcr.io/jxlog/ci@sha256:f76b5815b46db51f7884ddb3659b4fc28d47a92adc70a42112d0cd9cea2be477",
+      "compressed_layer_bytes": 237347726,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "847f70e36b9fb7dbde973d4a3f6f38af",
+      "image": "ghcr.io/jxlog/ci@sha256:a58fa59da391cf97522280017e35609b6a50d83364874a0b3ad60d7f28a86074",
+      "compressed_layer_bytes": 29768203,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "5faed07f8b363ccb249fd3f03c0b4f06",
+      "image": "ghcr.io/jxlog/ci@sha256:9ac6a74c2f63670cb8388beb007db25c22031a4c461c3ee91182a1599199f189",
+      "compressed_layer_bytes": 86295437,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "0146da3950ced1f54191e0c42c492e00",
+      "image": "ghcr.io/jxlog/ci@sha256:d49a9d4cd19ffb022ef53374ba3578651163fe3cfed699ed55f5895753478218",
+      "compressed_layer_bytes": 339442948,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "4221df12b020ff814a566b76cb9ebbda",
+      "image": "ghcr.io/jxlog/ci@sha256:5a2afb0f670231ce7c46b4e49717c920f4252465d94ce79ee5f6d2a471e55b0a",
+      "compressed_layer_bytes": 221033784,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "75325b5bee8cdbd7cdd5785cb9d28f58",
+      "image": "ghcr.io/jxlog/ci@sha256:2651b34b7867386812611fa6f3d5f071780f4085baeffb92ed0d7696c5ae489e",
+      "compressed_layer_bytes": 70001242,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "38024ddfbfee07fe13ec6dd0acf4fa51",
+      "image": "ghcr.io/jxlog/ci@sha256:3e3ef27de5ad115264f249b88bca747d197572c63c3318cfc8c42b89393e48fc",
+      "compressed_layer_bytes": 46485553,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "7ee5fa32f93243663ba237b1642b41a4",
+      "image": "ghcr.io/jxlog/ci@sha256:52168037dc8076f6966dfd79086dd67eacf46d1c3d1f324116e5f36682fc8e27",
+      "compressed_layer_bytes": 62213439,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "f58cfe29a4909ca201d1f99b2d0e0884",
+      "image": "ghcr.io/jxlog/ci@sha256:734c09f8ef598e9b2a61ab63f3283d3d9f01d5d9ad16ac12c87d00549d556fdb",
+      "compressed_layer_bytes": 401973181,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "36f094fd3a095e86416e5c73e58ce2ea",
+      "image": "ghcr.io/jxlog/ci@sha256:525870374ad90d41a72e3f5e8d0c94d11c54b0370aae554d4135973f6ea189e4",
+      "compressed_layer_bytes": 170095317,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "6c0cb98c7d5a01f4665ab090718e6cfc",
+      "image": "ghcr.io/jxlog/ci@sha256:faef4e7ef7fa986be48104fc906d988c728479cf8c7b74b1abe2e693f4c3cc00",
+      "compressed_layer_bytes": 147672892,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "8acbad7ba8d8e18b8fae97eb7411dac9",
+      "image": "ghcr.io/jxlog/ci@sha256:c131c74e41f5b4deedb3ec39bbeccda6f7505180c2a84fbdbf4892f79a8b6864",
+      "compressed_layer_bytes": 271225407,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "81570f2d4a0db3a8f2b9d73c6cfd3559",
+      "image": "ghcr.io/jxlog/ci@sha256:c733083765b804d67b990fc0628ae2640dbf916462dfc35cdf4d87219380e448",
+      "compressed_layer_bytes": 190574672,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "7e2a307257b89c3dcab4b955b745f339",
+      "image": "ghcr.io/jxlog/ci@sha256:937f685093c0627f4af1939458cb2b1ff42b938fdb3e2e350adf4daaa73826a8",
+      "compressed_layer_bytes": 46488231,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "9ee6addd9feed55df6606a74dbb14e79",
+      "image": "ghcr.io/jxlog/ci@sha256:2b8ed13c14b3a642c9cf1fa0ba710ba85d1ff57c1aff0198504cc20fa7df8844",
+      "compressed_layer_bytes": 490959821,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "de65a3345f4098caaa2783135c05f1dd",
+      "image": "ghcr.io/jxlog/ci@sha256:3348e96295899014461ca195d0b9c623cd782cb2898da780d9a85c42523abb50",
+      "compressed_layer_bytes": 89764978,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "87878e6bfbb3bdb77b85203a5e9f9990",
+      "image": "ghcr.io/jxlog/ci@sha256:d4fb9c3788c003e40198d9cab665ba7dea2470cacef5147d2d757f2f2bf6061f",
+      "compressed_layer_bytes": 46662344,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "a35a0e5ef297a0a1069960d2de2ffb90",
+      "image": "ghcr.io/jxlog/ci@sha256:2d7b38f8cf31bb986bd498a5eba26e3918c755c3d1822355f7ed74a4d9869b24",
+      "compressed_layer_bytes": 119784730,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "86288ff0c4f1b8058cbc2957bddd0b92",
+      "image": "ghcr.io/jxlog/ci@sha256:0d3675a19c0d97da8679f7ae99205390afa04cd9733f20e3edcfb579f9a80af9",
+      "compressed_layer_bytes": 46525672,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "520ab65da5d36bb505f3b1b466ba64af",
+      "image": "ghcr.io/jxlog/ci@sha256:aed5c5a3048e8d66c8099ad8e39c72db24ecd65b413557e67867866e372917fe",
+      "compressed_layer_bytes": 57807080,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "0c78e37abbf13f2a7a184313d7d7cd3c",
+      "image": "ghcr.io/jxlog/ci@sha256:05e2bdc83dcf45e754ff6784a4876d06fcd312fc248dc9af092f195b275b5019",
+      "compressed_layer_bytes": 29765851,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "2b6043b6eea3aedbe92cda33ebd3a87c",
+      "image": "ghcr.io/jxlog/ci@sha256:1b614e1ebfe0d446566fcd023438514f0e4686200828aa0120e3070ce5489a26",
+      "compressed_layer_bytes": 1129678894,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "929c7db08c7b0f20fca874ac9c93258a",
+      "image": "ghcr.io/jxlog/ci@sha256:7b1314d7cc99592593f4a34542b16259719e36b277f15130d1660ba4ac3b7153",
+      "compressed_layer_bytes": 50957818,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "f1c623e4bdf06c9696846db78e6ddacc",
+      "image": "ghcr.io/jxlog/ci@sha256:01dd7b9270a3dbd0aba110a076786a1e66d5aaaa94b8fe921db01e9233787308",
+      "compressed_layer_bytes": 412569539,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "ed31f4168b0241133622049b6f69ce92",
+      "image": "ghcr.io/jxlog/ci@sha256:5d100d1bc3ff59b8f1a10658c35b4722f19ec4fda6a0f3a6332d595d6ec6a48c",
+      "compressed_layer_bytes": 202862448,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "2e4d6f9ea31e75a2bbaec83ecf078920",
+      "image": "ghcr.io/jxlog/ci@sha256:bf07917af59ff29b111bc274d2637b2a579d76ff0ec12b9f9ccdaa69daf3983e",
+      "compressed_layer_bytes": 46500630,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "89bde9342bd4f2c637eb69f5d1c4753e",
+      "image": "ghcr.io/jxlog/ci@sha256:c92276e53769fd3b432a37d126ee54ede99686ad761030502357877c3725045e",
+      "compressed_layer_bytes": 29767610,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "5c36d47a65de4066b29e0a0bb120cd59",
+      "image": "ghcr.io/jxlog/ci@sha256:7401d81c74f8f41a48b7ed56b5a50f17e0a062530c595135f85802ad7547dbae",
+      "compressed_layer_bytes": 46485090,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "8b91f8e4128cb0925aa99a505a88f891",
+      "image": "ghcr.io/jxlog/ci@sha256:ef5e69f30c3592e3e6bf3622562de40875e2a51f98db049e780796da6381420b",
+      "compressed_layer_bytes": 42318677,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "7a77b5b856255e4957d68edc0175bb7d",
+      "image": "ghcr.io/jxlog/ci@sha256:2d066df5b795fc91df84eb43d6175c41d3075fe64b3e2b42229ac3fbcd2d206c",
+      "compressed_layer_bytes": 29765848,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "4ea83df96d43569c0461fbf986ac637e",
+      "image": "ghcr.io/jxlog/ci@sha256:bfe710a607e005b5af5ab74d3c1a1a82ee13faa1c2a92fd66614201a0fc45f37",
+      "compressed_layer_bytes": 29765851,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "5830e8a848141b992fcb61ff0f441d94",
+      "image": "ghcr.io/jxlog/ci@sha256:65247bdb3c443dcf6873d2af29f0fe43c2b7edea890436c6f5a321fe7c49f976",
+      "compressed_layer_bytes": 511902280,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "f3775e04a0ae1faec8d56a1de545891e",
+      "image": "ghcr.io/jxlog/ci@sha256:4c1ca8b742f99b415646957e73295f7f1d54370bfa9ac6b77354c5ed9da8c729",
+      "compressed_layer_bytes": 82941069,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "9c95d97bc16bc19d7e1bc7975d8d2a0f",
+      "image": "ghcr.io/jxlog/ci@sha256:668ca7b5d80f70c9ae2c58358135b27aacbfaa46b35a687acc1315f8ae85d56f",
+      "compressed_layer_bytes": 333053983,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "28eb04c65ba34e0c8a7f351d1bb27a32",
+      "image": "ghcr.io/jxlog/ci@sha256:94a0c354fedb135bddf2ac16bb58cd572708d1ff7f3ccad79763da10685e4e48",
+      "compressed_layer_bytes": 130464826,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "6257add82ace91d19fff473e58cb5824",
+      "image": "ghcr.io/jxlog/ci@sha256:a7d41e8641ef073d92d8743ab45caa2ffcff247ba05114a3f8af81dce1b65dc6",
+      "compressed_layer_bytes": 308805621,
+      "source_labels_verified": true
+    },
+    {
+      "request_key": "46f10bbad526d72fa36f7aef4cfdef45",
+      "image": "ghcr.io/jxlog/ci@sha256:1e1229073f9a5c48a9b3220bac269ce5978bd2fc1691be78e1394f055b3bbbb5",
+      "compressed_layer_bytes": 291520482,
+      "source_labels_verified": true
+    }
+  ],
+  "validation": [
+    "Nine generic request tests pass, including real Git tag/commit checkout regression",
+    "Successful build jobs publish and verify public OCI manifest digests",
+    "Independent anonymous manifest/config digest and pinned source-label checks pass for every successful output",
+    "All external source contexts and Dockerfiles are unchanged"
+  ],
+  "limits": [
+    "All images are linux/amd64; large-image runtime and downstream consumers are not qualified",
+    "Input source failures are retained as failures, without source rewrites or skipped build instructions",
+    "Registry outage recovery and other architectures remain unqualified",
+    "Compressed layer totals are per image, not deduplicated registry storage usage"
+  ]
+}

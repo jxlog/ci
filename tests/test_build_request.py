@@ -41,4 +41,36 @@ class RequestTests(unittest.TestCase):
             (p/'image/Dockerfile').write_bytes(b'changed')
             with self.assertRaises(ValueError):verify_source(self.item,p)
 
+
+
+class TagCheckoutTests(unittest.TestCase):
+    def test_commit_checkout_preserves_request_and_binds_event_revision(self):
+        import subprocess
+        from build_request import read_tag
+        with tempfile.TemporaryDirectory() as temp:
+            source = Path(temp) / 'source'
+            checkout = Path(temp) / 'checkout'
+            def git(*args, cwd=source):
+                return subprocess.check_output(['git', *args], cwd=cwd, text=True, stderr=subprocess.DEVNULL).strip()
+            source.mkdir()
+            git('init')
+            git('config', 'user.name', 'CI Test')
+            git('config', 'user.email', 'ci-test@example.invalid')
+            git('commit', '--allow-empty', '-m', 'fixture')
+            sha = git('rev-parse', 'HEAD')
+            fixture = RequestTests()
+            fixture.setUp()
+            raw = json.dumps({'version': 1, 'images': [fixture.item]})
+            git('tag', '-a', 'build-test', '-m', raw)
+            git('clone', '--no-checkout', str(source), str(checkout), cwd=Path(temp))
+            git('checkout', sha, cwd=checkout)
+            ref = 'refs/tags/build-test'
+            self.assertEqual(json.loads(read_tag(ref, sha, cwd=checkout)), json.loads(raw))
+            with self.assertRaisesRegex(ValueError, 'event commit'):
+                read_tag(ref, 'f' * 40, cwd=checkout)
+            # Reproduce checkout's implicit-tag fetch flattening the annotation.
+            git('update-ref', ref, sha, cwd=checkout)
+            with self.assertRaisesRegex(ValueError, 'annotated tag'):
+                read_tag(ref, sha, cwd=checkout)
+
 if __name__=='__main__':unittest.main()

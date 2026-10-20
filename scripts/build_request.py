@@ -67,15 +67,22 @@ def verify_source(spec, root):
     return {'context': str(context), 'file': str(dockerfile)}
 
 
+def read_tag(ref, pipeline, cwd=None):
+    def git(*args):
+        return subprocess.check_output(['git', *args], cwd=cwd, text=True).strip()
+    if git('cat-file', '-t', ref) != 'tag':
+        raise ValueError('request requires an annotated tag')
+    if git('rev-parse', ref + '^{commit}') != pipeline:
+        raise ValueError('request tag differs from event commit')
+    return git('for-each-ref', '--format=%(contents)', ref)
+
+
 def main():
     if sys.argv[1] == 'plan':
         ref = os.environ['GITHUB_REF']
         if not re.fullmatch(r'refs/tags/build-[a-z0-9-]{1,80}', ref):
             raise ValueError('unsupported request tag')
-        kind = subprocess.check_output(['git', 'cat-file', '-t', ref], text=True).strip()
-        if kind != 'tag':
-            raise ValueError('request requires an annotated tag')
-        raw = subprocess.check_output(['git', 'for-each-ref', '--format=%(contents)', ref], text=True)
+        raw = read_tag(ref, os.environ['GITHUB_SHA'])
         result = {'matrix': json.dumps(plan(raw, os.environ['GITHUB_SHA']), separators=(',', ':'))}
     else:
         result = verify_source(json.loads(os.environ['BUILD_SPEC']), '_source')

@@ -17,6 +17,9 @@ jobs:
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
+          # An explicit commit avoids checkout replacing an annotated tag with
+          # its peeled commit while verifying the event revision.
+          ref: ${{ github.sha }}
           fetch-depth: 0
           persist-credentials: false
       - name: Validate generic request tests

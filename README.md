@@ -99,3 +99,25 @@ Registry compatibility: automatic BuildKit provenance and SBOM attachments are
 disabled because some registries reject their empty-config media type. Regular
 runtime manifests and content digest checks remain enabled. JSON completion
 receipts are operational records, not signed supply-chain attestations.
+
+
+## Mirror an existing public image
+
+Push a new immutable annotated `mirror-*` tag whose JSON message is
+`{"version":1,"source":"docker.io/library/alpine:3.21","platform":"linux/amd64"}`.
+The tag points at a reviewed pipeline commit. The same configured registry
+Variable and Secrets are used; the request cannot override the destination.
+
+The standard public runner resolves and pins the source manifest, selects its
+linux/amd64 runtime, and uses Skopeo `copy --preserve-digests` without a Docker
+build, unpack or runtime execution. It independently reads back the destination
+manifest and config descriptors, then publishes a durable mirror receipt. An
+existing different destination digest is never overwritten. Source access is
+anonymous and isolated from destination authentication. Registry reads and copy
+have finite retry/time bounds; an uncertain workflow is observed before any
+new trigger. A tag is not moved to retry it.
+
+The runtime manifest/config/layer digests are preserved; other architectures,
+index attachments, signatures and referrers are not claimed to be mirrored.
+Runtime functionality is not tested by this copy workflow. Consumers remain
+outside this repository. Documentation: [Skopeo copy](https://github.com/containers/skopeo/blob/main/docs/skopeo-copy.1.md).

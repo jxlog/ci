@@ -1,0 +1,57 @@
+name: Mirror public image to configured registry
+on:
+  push:
+    tags: ['mirror-*']
+permissions:
+  contents: read
+concurrency:
+  group: mirror-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  mirror:
+    if: github.event.repository.private == false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    permissions:
+      contents: write
+    env:
+      REGISTRY_IMAGE: ${{ vars.REGISTRY_IMAGE }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Validate protocols and immutable mirror request
+        run: |
+          python3 -m unittest discover -s tests -p 'test_*.py' -v
+          python3 scripts/mirror_image.py plan
+          python3 scripts/registry_target.py
+      - name: Install registry transport
+        run: |
+          set -euo pipefail
+          sudo apt-get -o Acquire::Retries=3 update
+          sudo apt-get -o Acquire::Retries=3 install -y --no-install-recommends skopeo
+          skopeo --version
+      - name: Prepare scoped destination authentication
+        env:
+          MIRROR_SOURCE_AUTH: ${{ runner.temp }}/mirror-source-auth.json
+          MIRROR_DEST_AUTH: ${{ runner.temp }}/mirror-dest-auth.json
+          REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
+          REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
+        run: python3 scripts/mirror_image.py auth
+      - name: Copy pinned runtime manifest and verify destination
+        id: receipt
+        env:
+          MIRROR_SOURCE_AUTH: ${{ runner.temp }}/mirror-source-auth.json
+          MIRROR_DEST_AUTH: ${{ runner.temp }}/mirror-dest-auth.json
+        timeout-minutes: 310
+        run: python3 scripts/mirror_image.py copy
+      - name: Publish durable mirror receipt
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RECEIPT: ${{ steps.receipt.outputs.receipt }}
+        run: python3 scripts/publish_receipt.py "$RECEIPT"
+      - name: Remove ephemeral authentication
+        if: always()
+        run: rm -f -- "$RUNNER_TEMP/mirror-source-auth.json" "$RUNNER_TEMP/mirror-dest-auth.json"
